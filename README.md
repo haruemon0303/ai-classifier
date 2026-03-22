@@ -63,7 +63,7 @@ pip install anthropic python-dotenv matplotlib
 ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxxxxx
 ```
 
-> `.env` はGitに含めないよう `.gitignore` に追加してください。
+> `.env` はリポジトリの `.gitignore` で除外済みです。
 
 ## 実行方法
 
