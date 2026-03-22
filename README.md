@@ -30,13 +30,13 @@ ai-classifier/
 ├── analyze.py    # 分類結果を集計・グラフ化する
 ├── input.csv     # 分類したい記事タイトルの入力ファイル
 ├── output.csv    # 分類結果（classify.py が生成）
-├── result.png    # 棒グラフ画像（analyze.py が生成）
-└── .env          # APIキーの設定ファイル（自分で作成）
+└── result.png    # 棒グラフ画像（analyze.py が生成）
 ```
 
 ## 必要な環境
 
 - Python 3.11 以上
+- macOS（キーチェーンを使用）
 - Anthropic API キー（[Anthropic Console](https://console.anthropic.com/) で取得）
 
 ## セットアップ
@@ -45,25 +45,28 @@ ai-classifier/
 
 ```bash
 python3 -m venv .venv
-source .venv/bin/activate   # Mac / Linux
-# .venv\Scripts\activate   # Windows の場合
+source .venv/bin/activate
 ```
 
 ### 2. 必要なパッケージをインストール
 
 ```bash
-pip install anthropic python-dotenv matplotlib
+pip install anthropic matplotlib
 ```
 
-### 3. APIキーを設定
+### 3. APIキーをキーチェーンに登録
 
-プロジェクトのルートに `.env` ファイルを作成し、APIキーを記述します。
-
-```
-ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxxxxx
+```bash
+security add-generic-password -a "$USER" -s "ANTHROPIC_API_KEY" -w "sk-ant-xxxxxxxxxxxxxxxx"
 ```
 
-> `.env` はリポジトリの `.gitignore` で除外済みです。
+> **なぜキーチェーン？** `.env` ファイルに平文保存するより安全です。キーはOS管理の暗号化領域に保存され、ファイルとして存在しないためリポジトリへの誤コミットや漏洩リスクがありません。
+
+キーを更新したい場合は `-U` オプションを付けて再実行します。
+
+```bash
+security add-generic-password -U -a "$USER" -s "ANTHROPIC_API_KEY" -w "sk-ant-新しいキー"
+```
 
 ## 実行方法
 
